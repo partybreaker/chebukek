@@ -1,13 +1,14 @@
 import os, sys, platform
 import subprocess
 from subprocess import check_output
-
+from utils.colors import bcolors
 
 OPTIONS = '''
 1. Take screenshot
 2. Schedule screenshot
 3. Check host
-4. Exit
+4. Backdoor
+5. Exit
 '''
 
 
@@ -60,12 +61,15 @@ def cmd_takeScreenshot():
 def cmd_screenshotTaskScheduler():
     pass
 
+def backdoor():
+    pass
 
 cmd = {
     "1" : cmd_takeScreenshot,
     "2" : cmd_screenshotTaskScheduler,
     "3" : checkHost,
-    "4" : lambda: sys.exit(0),
+    "4" : backdoor,
+    "5" : lambda: sys.exit(0),
 }
 
 def main():
