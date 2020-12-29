@@ -1,10 +1,13 @@
-import os, sys
+import os, sys, platform
 import subprocess
 from subprocess import check_output
 
 
 OPTIONS = '''
 1. Take screenshot
+2. Schedule screenshot
+3. Check host
+4. Exit
 '''
 
 
@@ -36,14 +39,30 @@ def menu():
             sys.exit(0)
 
 
+def checkHost():
+    if os.name == "posix":
+        print('\n [+] Ok \n')
+        print('OS - {}, kernel version - {}'.format(platform.system(), platform.release()))
+    else:
+        print('[!] HUITA')
+        sys.exit(0)
 
-def get_screenshot():
+
+
+def cmd_takeScreenshot():
     subprocess.call(["sh", "./script/screenshot.sh"])
     print("Screenshot is taken")
 
 
-cmds = {
-    "1": get_screenshot
+def cmd_screenshotTaskScheduler():
+    pass
+
+
+cmd = {
+    "1" : cmd_takeScreenshot,
+    "2" : cmd_screenshotTaskScheduler,
+    "3" : checkHost,
+    "4" : lambda: sys.exit(0),
 }
 
 def main():
@@ -52,10 +71,10 @@ def main():
     try:
         while True:
             choice = input('\n%s' % OPTIONS)
-            if choice not in cmds:
+            if choice not in cmd:
                 print('[!] Invalid Choice')
                 continue
-            cmds.get(choice)()
+            cmd.get(choice)()
     except KeyboardInterrupt:
         print('[!] Ctrl + C detected\n[!] Exiting')
         sys.exit(0)
