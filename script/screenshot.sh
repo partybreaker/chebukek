@@ -1,4 +1,4 @@
 #!/bin/bash
 
 
-import -screen -window root test.png
+import -screen -window root screen/test.png
